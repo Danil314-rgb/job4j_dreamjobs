@@ -29,7 +29,7 @@
         <div class="card" style="width: 100%">
             <div class="card-header">Новый кандидат.</div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidate/save" method="post">
+                <form action="<%=request.getContextPath()%>/candidates.do" method="post">
                     <div class="form-group">
                         <label>Имя-Позиция</label>
                         <input type="text" class="form-control" name="name">
