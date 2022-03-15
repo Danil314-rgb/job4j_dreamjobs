@@ -12,7 +12,7 @@ public class DownloadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        File users = null;
+        /*File users = null;
         for (File file : new File("C:\\projects\\job4j_dreamjob\\src\\main\\images\\").listFiles()) {
             if ("users.txt".equals(file.getName())) {
                 users = file;
@@ -21,6 +21,6 @@ public class DownloadServlet extends HttpServlet {
         }
         try (FileInputStream stream = new FileInputStream(users)){
             resp.getOutputStream().write(stream.readAllBytes());
-        }
+        }*/
     }
 }

@@ -1,4 +1,3 @@
-<!--
 <!DOCTYPE web-app PUBLIC
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
@@ -16,7 +15,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
-        <url-pattern>/posts.do</url-pattern>
+        <url-pattern>/post/save</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -25,29 +24,30 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CandidateServlet</servlet-name>
-        <url-pattern>/candidates.do</url-pattern>
+        <url-pattern>/candidates/save</url-pattern>
     </servlet-mapping>
 
-    <servlet>
+    <!--<servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>dream.IndexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index.do</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <servlet>
+    <!--<servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlets.DownloadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DownloadServlet</servlet-name>
         <url-pattern>/download</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
 </web-app>
--->
+
+<!--
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -63,4 +63,4 @@
         <servlet-name>DownloadServlet</servlet-name>
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
-</web-app>
+</web-app>-->
