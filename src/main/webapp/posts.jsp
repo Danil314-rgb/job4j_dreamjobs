@@ -38,20 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            <% for (Post post : Store.instOf().findAllPosts()) { %>
-            <tr>
-                <td><%=post.getId()%></td>
-                <td>
-                    <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
-                        <i class="fa fa-edit mr-3"></i>
-                    </a>
-                    <%=post.getName()%>
-                </td>
-                <td><%=post.getDescription()%></td>
-                <td><%=post.getCreated()%></td>
-            </tr>
-            <% } %>
-            <%--<% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
+            <%--<% for (Post post : Store.instOf().findAllPosts()) { %>
             <tr>
                 <td><%=post.getId()%></td>
                 <td>
@@ -64,6 +51,19 @@
                 <td><%=post.getCreated()%></td>
             </tr>
             <% } %>--%>
+            <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
+            <tr>
+                <td><%=post.getId()%></td>
+                <td>
+                    <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
+                        <i class="fa fa-edit mr-3"></i>
+                    </a>
+                    <%=post.getName()%>
+                </td>
+                <td><%=post.getDescription()%></td>
+                <td><%=post.getCreated()%></td>
+            </tr>
+            <% } %>
             </tbody>
         </table>
     </div>
