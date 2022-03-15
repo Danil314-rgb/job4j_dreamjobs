@@ -18,6 +18,6 @@ public class MainStore {
         }
         System.out.println("-------------------------------------");
 
-        System.out.println(store.findById(1).getName());
+        System.out.println(store.findByPostId(1).getName());
     }
 }

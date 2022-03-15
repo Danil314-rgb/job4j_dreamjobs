@@ -73,7 +73,19 @@ public class DbStore implements Store {
 
     @Override
     public Collection<Candidate> findAllCandidates() {
-        return null;
+        List<Candidate> candidates = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement("select * from candidate")
+        ) {
+            try (ResultSet it = statement.executeQuery()) {
+                while (it.next()) {
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidates;
     }
 
     @Override
@@ -82,6 +94,15 @@ public class DbStore implements Store {
             create(post);
         } else {
             update(post);
+        }
+    }
+
+    @Override
+    public void save(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            create(candidate);
+        } else {
+            update(candidate);
         }
     }
 
@@ -103,6 +124,24 @@ public class DbStore implements Store {
         return post;
     }
 
+    private Candidate create(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement("insert into candidate(name) values (?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            statement.setString(1, candidate.getName());
+            statement.execute();
+            try (ResultSet id = statement.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidate;
+    }
+
     private void update(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement("update post set name = ? where id = ?")
@@ -115,8 +154,20 @@ public class DbStore implements Store {
         }
     }
 
+    private void update(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement("update candidate set name = ? where id = ?")
+        ) {
+            statement.setString(1, candidate.getName());
+            statement.setInt(2, candidate.getId());
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public Post findById(int id) {
+    public Post findByPostId(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("select * from post where id = ?")
         ) {
@@ -124,6 +175,23 @@ public class DbStore implements Store {
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
                     return new Post(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Candidate findByCandidateId(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("select * from candidate where id = ?")
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    return new Candidate(it.getInt("id"), it.getString("name"));
                 }
             }
         } catch (Exception e) {
