@@ -69,7 +69,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return posts;
     }
@@ -86,7 +86,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return candidates;
     }
@@ -108,7 +108,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return users;
     }
@@ -153,7 +153,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return post;
     }
@@ -171,7 +171,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return candidate;
     }
@@ -192,7 +192,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return user;
     }
@@ -205,7 +205,7 @@ public class DbStore implements Store {
             statement.setInt(2, post.getId());
             statement.execute();
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -217,7 +217,7 @@ public class DbStore implements Store {
             statement.setInt(2, candidate.getId());
             statement.execute();
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -232,7 +232,7 @@ public class DbStore implements Store {
             statement.setInt(4, user.getId());
             statement.execute();
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -248,7 +248,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -265,7 +265,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -287,7 +287,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            LOG.error(e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
