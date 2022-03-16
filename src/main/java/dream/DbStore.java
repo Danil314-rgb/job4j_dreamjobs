@@ -1,6 +1,8 @@
 package dream;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -16,7 +18,7 @@ import java.util.Properties;
 
 public class DbStore implements Store {
 
-    private static final DbStore instance = new DbStore();
+    private static final Logger LOG = LogManager.getLogger(DbStore.class.getName());
 
     private final BasicDataSource pool = new BasicDataSource();
 
@@ -66,7 +68,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return posts;
     }
@@ -83,7 +85,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return candidates;
     }
@@ -119,7 +121,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return post;
     }
@@ -137,7 +139,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return candidate;
     }
@@ -150,7 +152,7 @@ public class DbStore implements Store {
             statement.setInt(2, post.getId());
             statement.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 
@@ -162,7 +164,7 @@ public class DbStore implements Store {
             statement.setInt(2, candidate.getId());
             statement.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
     }
 
@@ -178,7 +180,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return null;
     }
@@ -195,7 +197,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         return null;
     }
