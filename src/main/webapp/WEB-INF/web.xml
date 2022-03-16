@@ -45,6 +45,15 @@
         <url-pattern>/auth.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>dream.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout.do</url-pattern>
+    </servlet-mapping>
+
     <!--<servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlets.DownloadServlet</servlet-class>

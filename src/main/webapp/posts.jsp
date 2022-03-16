@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="java.util.Collection" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,6 +28,27 @@
 <body>
 <div class="container">
     <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
+            </li>
+            <c:if test="${user != null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">Выйти</a>
+                </li>
+            </c:if>
+        </ul>
+    </div>
+    <div class="row">
         <table class="table">
             <thead>
             <tr>
@@ -37,19 +59,6 @@
             </tr>
             </thead>
             <tbody>
-            <%--<% for (Post post : Store.instOf().findAllPosts()) { %>
-            <tr>
-                <td><%=post.getId()%></td>
-                <td>
-                    <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
-                        <i class="fa fa-edit mr-3"></i>
-                    </a>
-                    <%=post.getName()%>
-                </td>
-                <td><%=post.getDescription()%></td>
-                <td><%=post.getCreated()%></td>
-            </tr>
-            <% } %>--%>
             <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
             <tr>
                 <td><%=post.getId()%></td>
