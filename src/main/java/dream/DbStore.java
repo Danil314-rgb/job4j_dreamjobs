@@ -5,6 +5,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -91,6 +92,28 @@ public class DbStore implements Store {
     }
 
     @Override
+    public Collection<User> findAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement("select * from users")
+        ) {
+            try (ResultSet res = statement.executeQuery()) {
+                while (res.next()) {
+                    users.add(new User(
+                            res.getInt("id"),
+                            res.getString("name"),
+                            res.getString("email"),
+                            res.getString("password")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+        return users;
+    }
+
+    @Override
     public void save(Post post) {
         if (post.getId() == 0) {
             create(post);
@@ -105,6 +128,15 @@ public class DbStore implements Store {
             create(candidate);
         } else {
             update(candidate);
+        }
+    }
+
+    @Override
+    public void save(User user) {
+        if (user.getId() == 0) {
+            create(user);
+        } else {
+            update(user);
         }
     }
 
@@ -144,6 +176,27 @@ public class DbStore implements Store {
         return candidate;
     }
 
+    private User create(User user) {
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "insert into users(name, email, password) values (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.execute();
+            try (ResultSet id = statement.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+        return user;
+    }
+
     private void update(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement("update post set name = ? where id = ?")
@@ -162,6 +215,21 @@ public class DbStore implements Store {
         ) {
             statement.setString(1, candidate.getName());
             statement.setInt(2, candidate.getId());
+            statement.execute();
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+    }
+
+    private void update(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
+                     "update users set name = ?, email = ?, password = ? where id = ?")
+        ) {
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.setInt(4, user.getId());
             statement.execute();
         } catch (Exception e) {
             LOG.error(e);
@@ -194,6 +262,28 @@ public class DbStore implements Store {
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
                     return new Candidate(it.getInt("id"), it.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+        return null;
+    }
+
+    @Override
+    public User findByUserId(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("select * from users where id = ?")
+        ) {
+            ps.setInt(1, id);
+            try (ResultSet res = ps.executeQuery()) {
+                if (res.next()) {
+                    return new User(
+                            res.getInt("id"),
+                            res.getString("name"),
+                            res.getString("email"),
+                            res.getString("password")
+                    );
                 }
             }
         } catch (Exception e) {
