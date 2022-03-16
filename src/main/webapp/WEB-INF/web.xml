@@ -54,6 +54,15 @@
         <url-pattern>/logout.do</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>dream.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
     <!--<servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlets.DownloadServlet</servlet-class>
