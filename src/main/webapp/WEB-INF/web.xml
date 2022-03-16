@@ -36,6 +36,15 @@
         <url-pattern>/index.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>dream.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth.do</url-pattern>
+    </servlet-mapping>
+
     <!--<servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlets.DownloadServlet</servlet-class>
@@ -47,20 +56,20 @@
 
 </web-app>
 
-<!--
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
-         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
-    <servlet>
-        <servlet-name>DownloadServlet</servlet-name>
-        <servlet-class>servlets.DownloadServlet</servlet-class>
-    </servlet>
+        <!--
+        <?xml version="1.0" encoding="ISO-8859-1" ?>
+        <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+                 http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+                 version="2.4">
+            <servlet>
+                <servlet-name>DownloadServlet</servlet-name>
+                <servlet-class>servlets.DownloadServlet</servlet-class>
+            </servlet>
 
-    <servlet-mapping>
-        <servlet-name>DownloadServlet</servlet-name>
-        <url-pattern>/download</url-pattern>
-    </servlet-mapping>
-</web-app>-->
+            <servlet-mapping>
+                <servlet-name>DownloadServlet</servlet-name>
+                <url-pattern>/download</url-pattern>
+            </servlet-mapping>
+        </web-app>-->
