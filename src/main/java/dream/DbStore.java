@@ -292,6 +292,7 @@ public class DbStore implements Store {
         return null;
     }
 
+    @Override
     public User findByUserEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("select * from users where email = ?")
