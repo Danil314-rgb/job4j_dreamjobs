@@ -20,11 +20,30 @@
             <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
         </li>
         <li class="nav-item">
+            <c:choose>
+                <c:when test="${user == null}">
+                    <a class="nav-link" href='<c:url value="/login.jsp"/>'>
+                        Anonymous | Войти
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a class="nav-link" href='<c:url value="<%----%>?id=${user.id}"/>'>
+                        <i class="fa fa-edit mr-3"></i><c:out value="${user.name}"/>
+                    </a>
+                </c:otherwise>
+            </c:choose>
+        </li>
+        <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href='<c:url value="/logout.do"/>'>Выйти</a>
+            </li>
+        </c:if>
+        <%--<li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/reg.jsp"> <c:out value="${user.name}"/> Регистрация</a>
-        </li>
+        </li>--%>
     </ul>
 </div>
 </body>
