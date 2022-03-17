@@ -27,7 +27,7 @@
                     </a>
                 </c:when>
                 <c:otherwise>
-                    <a class="nav-link" href='<c:url value="/logout.do?id=${user.id}"/>'>
+                    <a class="nav-link" href='<c:url value="/logout.do${user.id}"/>'>
                         <i class="fa fa-edit mr-3"></i><c:out value="${user.name}"/>
                     </a>
                 </c:otherwise>
