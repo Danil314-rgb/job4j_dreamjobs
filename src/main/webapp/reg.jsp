@@ -30,7 +30,7 @@
         <div class="card" style="width: 100%">
             <div class="card-header">Регистрация</div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/resist.do" method="post">
+                <form action="<%=request.getContextPath()%>/reg.jsp" method="post">
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name">

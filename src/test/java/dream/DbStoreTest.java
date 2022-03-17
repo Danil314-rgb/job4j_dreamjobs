@@ -3,6 +3,7 @@ package dream;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -84,5 +85,28 @@ public class DbStoreTest {
         assertTrue(candidates.contains(candidate2));
         assertTrue(candidates.contains(candidate3));
         assertTrue(candidates.contains(candidate4));
+    }
+
+    @Test
+    public void whenCreateUser() {
+        Store store = DbStore.instOf();
+        User user1 = new User(0, "dan", "dan.mail", "dan");
+        store.save(user1);
+        assertThat(store.findByUserEmail(user1.getEmail()).getEmail(), is("dan.mail"));
+    }
+
+    @Test
+    public void whenAllUsers() {
+        Store store = DbStore.instOf();
+        User user1 = new User(0, "da", "da.mail", "da");
+        User user2 = new User(0, "dan", "dan.mail", "dan");
+        User user3 = new User(0, "danil", "danil.mail", "danil");
+        store.save(user1);
+        store.save(user2);
+        store.save(user3);
+        Collection<User> users = store.findAllUsers();
+        assertTrue(users.contains(user1));
+        assertTrue(users.contains(user2));
+        assertTrue(users.contains(user3));
     }
 }
