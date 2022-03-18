@@ -27,7 +27,9 @@
                     </a>
                 </c:when>
                 <c:otherwise>
-                    <a class="nav-link" href='<c:url value="/logout.do"/>'></a>
+                    <a class="nav-link" href='<c:url value="/logout.do"/>'>
+
+                    </a>
                 </c:otherwise>
             </c:choose>
         </li>
