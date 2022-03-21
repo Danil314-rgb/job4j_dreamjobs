@@ -11,12 +11,14 @@
     <script>
         function validate() {
             var value1 = $('#fname').val();
-            var value2 = $('#lname').val()
-            if (value1 !== '' && value2 !== '') {
+            var value2 = $('#lname').val();
+            var value3 = $('#text').val();
+            if (value1 !== '' && value2 !== '' && value3 !== '') {
                 alert(value1);
                 alert(value2);
+                alert(value3);
             } else {
-                alert('Заполние оба поля: Имя и Фамилия');
+                alert('Заполние все поля: Имя Фамилия Описание');
             }
             return false;
         }
@@ -49,8 +51,8 @@
                 <label class="form-check-label" for="inlineRadio2">женский</label>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Описание:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                <label for="text">Описание:</label>
+                <textarea class="form-control" id="text" rows="7"></textarea>
             </div>
             <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
         </form>
