@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
 public class AuthServlet extends HttpServlet {
 
     @Override
@@ -17,24 +16,12 @@ public class AuthServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         User nUser = DbStore.instOf().findByUserEmail(email);
-        /*if (email.equals(nUser.getEmail()) && password.equals(nUser.getPassword())
-                && nUser.getEmail() != null && nUser.getPassword() != null) {
-            HttpSession session = req.getSession();
-            User user = new User();
-            user.setName(email);
-            user.setEmail(email);
-            session.setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/posts.do");
-        } else {
-            req.setAttribute("error", "Не верный email или пароль");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
-        }*/
 
         if (nUser == null) {
             req.setAttribute("error", "Пользователя с данным email не существует");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
-            if (email.equals(nUser.getEmail()) && password.equals(nUser.getPassword())) {
+            if (password.equals(nUser.getPassword())) {
                 HttpSession session = req.getSession();
                 User user = new User();
                 user.setName(email);
