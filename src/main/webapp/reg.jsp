@@ -20,6 +20,17 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
+    <script>
+        function validate() {
+            var res = true;
+            if ($('#name').val() === '' || $('#email').val() === '' || $('#pass').val() === '') {
+                alert('Заполните все поля: Имя Почта Пароль');
+                res = false;
+            }
+            return res;
+        }
+    </script>
+
     <title>Работа мечты</title>
 
 </head>
@@ -33,17 +44,17 @@
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" required>
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email" required>
+                        <input type="text" class="form-control" name="email" id="email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password" required>
+                        <input type="text" class="form-control" name="password" id="pass">
                     </div>
-                    <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Зарегестрироваться</button>
                     <c:if test="${not empty error}">
                         <div style="color:red; font-weight: bold; margin: 30px 0;">
                             <c:out value="${error}"/>
