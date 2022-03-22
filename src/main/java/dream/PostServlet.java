@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PostServlet extends HttpServlet {
@@ -24,7 +25,10 @@ public class PostServlet extends HttpServlet {
         DbStore.instOf().save(
                 new Post(
                         Integer.parseInt(req.getParameter("id")),
-                        req.getParameter("name")
+                        req.getParameter("name"),
+                        req.getParameter("description"),
+                        /*req.getParameter("created")*/
+                        LocalDateTime.parse(req.getParameter("created"))
                 )
         );
         resp.sendRedirect(req.getContextPath() + "/posts.do");

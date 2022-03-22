@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="dream.DbStore" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -38,7 +39,7 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Post post = new Post(0, "");
+    Post post = new Post(0, "", "", LocalDateTime.now());
     if (id != null) {
         post = DbStore.instOf().findByPostId(Integer.parseInt(id));
     }
@@ -78,6 +79,16 @@
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name"
                                value="<%=post.getName()%>" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <input type="text" class="form-control" name="description"
+                               value="<%=post.getDescription()%>" id="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Дата создания</label>
+                        <input type="text" class="form-control" name="created"
+                               value="<%=post.getCreated()%>" id="created" readonly>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>

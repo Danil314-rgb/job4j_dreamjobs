@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -66,7 +68,13 @@ public class DbStore implements Store {
         ) {
             try (ResultSet it = statement.executeQuery()) {
                 while (it.next()) {
-                    posts.add(new Post(it.getInt("id"), it.getString("name")));
+                    posts.add(new Post(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("description"),
+                            /*it.getString("created")*/
+                            it.getTimestamp("created").toLocalDateTime()
+                    ));
                 }
             }
         } catch (Exception e) {
@@ -167,10 +175,14 @@ public class DbStore implements Store {
 
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement("insert into post(name) values (?)",
+             PreparedStatement statement = cn.prepareStatement(
+                     "insert into post(name, description, created) values (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, post.getName());
+            statement.setString(2, post.getDescription());
+            /*statement.setString(3, post.getCreated());*/
+            statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             statement.execute();
             try (ResultSet id = statement.getGeneratedKeys()) {
                 if (id.next()) {
@@ -224,10 +236,14 @@ public class DbStore implements Store {
 
     private void update(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement("update post set name = ? where id = ?")
+             PreparedStatement statement = cn.prepareStatement(
+                     "update post set name = ?, description = ?, created = ?  where id = ?")
         ) {
             statement.setString(1, post.getName());
-            statement.setInt(2, post.getId());
+            statement.setString(2, post.getDescription());
+            /*statement.setString(3, post.getCreated());*/
+            statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(4, post.getId());
             statement.execute();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -269,7 +285,13 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return new Post(it.getInt("id"), it.getString("name"));
+                    return new Post(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("description"),
+                            //it.getString("created")
+                            it.getTimestamp("created").toLocalDateTime()
+                    );
                 }
             }
         } catch (Exception e) {
