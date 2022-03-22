@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="dream.DbStore" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@
         post = DbStore.instOf().findByPostId(Integer.parseInt(id));
     }
 %>
-<div class="container pt-3">
+<div class="container">
     <div class="row">
         <ul class="nav">
             <li class="nav-item">

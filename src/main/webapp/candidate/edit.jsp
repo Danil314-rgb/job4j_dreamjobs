@@ -33,17 +33,35 @@
         }
     </script>
 
+    <%--<script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/dreamjob/cities',
+                dataType: 'json'
+            }).done(function (data) {
+                console.log(data.length + 'length');
+                console.log(data);
+                for (var city of data) {
+                    let name = city.name;
+                    alert(name);
+                    $('#cities li')
+                }
+            })
+        });
+    </script>--%>
+
     <title>Работа мечты</title>
 </head>
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", "");
     if (id != null) {
         candidate = DbStore.instOf().findByCandidateId(Integer.parseInt(id));
     }
 %>
-<div class="container pt-3">
+<div class="container">
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
@@ -80,7 +98,7 @@
                                value="<%=candidate.getName()%>" id="name">
                     </div>
                     <div class="form-group">
-                        <label for="cities">Пол</label>
+                        <label for="cities">Город</label>
                         <select class="form-control" id="cities">
                             <option>Список всех городов из бд</option>
                             <%--TODO связь с бд--%>

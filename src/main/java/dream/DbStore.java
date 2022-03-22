@@ -4,6 +4,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
@@ -82,7 +83,11 @@ public class DbStore implements Store {
         ) {
             try (ResultSet it = statement.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    candidates.add(new Candidate(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("city")
+                    ));
                 }
             }
         } catch (Exception e) {
@@ -111,6 +116,26 @@ public class DbStore implements Store {
             LOG.error(e.getMessage(), e);
         }
         return users;
+    }
+
+    @Override
+    public Collection<City> findAllCities() {
+        List<City> cities = new ArrayList<>();
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement("select * from city")
+        ) {
+            try (ResultSet res = statement.executeQuery()) {
+                while (res.next()) {
+                    cities.add(new City(
+                            res.getInt("id"),
+                            res.getString("name")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return cities;
     }
 
     @Override
@@ -261,7 +286,11 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    return new Candidate(it.getInt("id"), it.getString("name"));
+                    return new Candidate(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("city")
+                    );
                 }
             }
         } catch (Exception e) {

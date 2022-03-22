@@ -34,7 +34,7 @@
     <title>Работа мечты</title>
 </head>
 <body>
-<div class="container pt-3">
+<div class="container">
     <jsp:include page="topPanel.jsp"/>
     <div class="row">
         <div class="card" style="width: 100%">

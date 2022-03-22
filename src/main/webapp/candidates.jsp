@@ -34,18 +34,23 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Имя - Позиция</th>
+                <th scope="col">Город</th>
             </tr>
             </thead>
             <tbody>
             <% for (Candidate can : (Collection<Candidate>) request.getAttribute("candidates")) { %>
             <tr>
-                <td><%= can.getId() %>
+                <td>
+                    <%= can.getId() %>
                 </td>
                 <td>
                     <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=can.getId()%>">
                         <i class="fa fa-edit mr-3"></i>
                     </a>
                     <%= can.getName() %>
+                </td>
+                <td>
+                    <%=can.getCity() %>
                 </td>
             </tr>
             <% } %>
