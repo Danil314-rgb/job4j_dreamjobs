@@ -70,7 +70,6 @@ public class DbStore implements Store {
                             it.getString("name"),
                             it.getString("description"),
                             it.getTimestamp("created").toLocalDateTime()
-
                     ));
                 }
             }
@@ -128,7 +127,7 @@ public class DbStore implements Store {
     public Collection<City> findAllCities() {
         List<City> cities = new ArrayList<>();
         try (Connection connection = pool.getConnection();
-             PreparedStatement statement = connection.prepareStatement("select * from city")
+             PreparedStatement statement = connection.prepareStatement("select * from city order by name")
         ) {
             try (ResultSet res = statement.executeQuery()) {
                 while (res.next()) {
@@ -411,5 +410,4 @@ public class DbStore implements Store {
         }
         return candidates;
     }
-
 }

@@ -1,6 +1,4 @@
 <%@ page import="ru.job4j.dream.model.Post" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="dream.Store" %>
 <%@ page import="dream.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -39,7 +37,6 @@
                         <th scope="col"></th>
                         <th scope="col">Объявление</th>
                         <th scope="col">Описание</th>
-                        <%--<th scope="col">Дата публикации</th>--%>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,9 +51,6 @@
                         <td>
                             <%=post.getDescription()%>
                         </td>
-                        <%--<td>
-                            <%=post.getCreated()%>
-                        </td>--%>
                     </tr>
                     <% } %>
                     </tbody>

@@ -33,25 +33,6 @@
             return res;
         }
     </script>
-
-    <%--<script>
-        $(document).ready(function () {
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:8080/dreamjob/cities',
-                dataType: 'json'
-            }).done(function (data) {
-                console.log(data.length + 'length');
-                console.log(data);
-                for (var city of data) {
-                    let name = city.name;
-                    alert(name);
-                    $('#cities li')
-                }
-            })
-        });
-    </script>--%>
-
     <title>Работа мечты</title>
 </head>
 <body>
@@ -99,10 +80,11 @@
                                value="<%=candidate.getName()%>" id="name">
                     </div>
                     <div class="form-group">
-                        <label for="cities">Город</label>
-                        <select class="form-control" id="cities">
-                            <option>Список всех городов из бд</option>
-                            <%--TODO связь с бд--%>
+                        <label>Город</label>
+                        <select class="form-control" name="cities">
+                            <c:forEach items="${DbStore.instOf().findAllCities()}" var="city">
+                                <option><c:out value="${city.name}" /></option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
