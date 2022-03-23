@@ -26,8 +26,8 @@
     <script>
         function validate() {
             var res = true;
-            if ($('#name').val() === '') {
-                alert('Заполните поле: Имя');
+            if ($('#name').val() === '' || $('#description').val() === '') {
+                alert('Заполните все поля: Имя Описание');
                 res = false;
             }
             return res;

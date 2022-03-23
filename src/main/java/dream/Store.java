@@ -30,4 +30,8 @@ public interface Store {
     User findByUserId(int id);
 
     User findByUserEmail(String email);
+
+    Collection<Post> allTodayPost();
+
+    Collection<Candidate> allTodayCandidate();
 }

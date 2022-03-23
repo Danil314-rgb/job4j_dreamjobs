@@ -27,7 +27,6 @@ public class PostServlet extends HttpServlet {
                         Integer.parseInt(req.getParameter("id")),
                         req.getParameter("name"),
                         req.getParameter("description"),
-                        /*req.getParameter("created")*/
                         LocalDateTime.parse(req.getParameter("created"))
                 )
         );

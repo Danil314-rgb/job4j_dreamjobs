@@ -35,6 +35,7 @@
                 <th scope="col"></th>
                 <th scope="col">Имя - Позиция</th>
                 <th scope="col">Город</th>
+                <th scope="col">Дата публикации</th>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +52,9 @@
                 </td>
                 <td>
                     <%=can.getCity() %>
+                </td>
+                <td>
+                    <%=can.getCreated()%>
                 </td>
             </tr>
             <% } %>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CandidateServlet extends HttpServlet {
@@ -25,7 +26,9 @@ public class CandidateServlet extends HttpServlet {
                 new Candidate(
                         Integer.parseInt(req.getParameter("id")),
                         req.getParameter("name"),
-                        req.getParameter("city")
+                        req.getParameter("cities"),
+                        LocalDateTime.parse(req.getParameter("created"))
+
                 )
         );
         resp.sendRedirect(req.getContextPath() + "/candidates.do");

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="dream.DbStore" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -56,7 +57,7 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "", "");
+    Candidate candidate = new Candidate(0, "", "", LocalDateTime.now());
     if (id != null) {
         candidate = DbStore.instOf().findByCandidateId(Integer.parseInt(id));
     }
@@ -103,6 +104,11 @@
                             <option>Список всех городов из бд</option>
                             <%--TODO связь с бд--%>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата создания</label>
+                        <input type="text" class="form-control" name="created"
+                               value="<%=candidate.getCreated()%>" id="created" readonly>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>

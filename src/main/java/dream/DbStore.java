@@ -15,10 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class DbStore implements Store {
 
@@ -72,8 +69,8 @@ public class DbStore implements Store {
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("description"),
-                            /*it.getString("created")*/
                             it.getTimestamp("created").toLocalDateTime()
+
                     ));
                 }
             }
@@ -94,7 +91,8 @@ public class DbStore implements Store {
                     candidates.add(new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
-                            it.getString("city")
+                            it.getString("city"),
+                            it.getTimestamp("created").toLocalDateTime()
                     ));
                 }
             }
@@ -181,7 +179,6 @@ public class DbStore implements Store {
         ) {
             statement.setString(1, post.getName());
             statement.setString(2, post.getDescription());
-            /*statement.setString(3, post.getCreated());*/
             statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             statement.execute();
             try (ResultSet id = statement.getGeneratedKeys()) {
@@ -197,10 +194,12 @@ public class DbStore implements Store {
 
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement("insert into candidate(name) values (?)",
+             PreparedStatement statement = cn.prepareStatement("insert into candidate(name, city, created) values (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, candidate.getName());
+            statement.setString(2, candidate.getCity());
+            statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             statement.execute();
             try (ResultSet id = statement.getGeneratedKeys()) {
                 if (id.next()) {
@@ -241,7 +240,6 @@ public class DbStore implements Store {
         ) {
             statement.setString(1, post.getName());
             statement.setString(2, post.getDescription());
-            /*statement.setString(3, post.getCreated());*/
             statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(4, post.getId());
             statement.execute();
@@ -252,10 +250,13 @@ public class DbStore implements Store {
 
     private void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement("update candidate set name = ? where id = ?")
+             PreparedStatement statement = cn.prepareStatement(
+                     "update candidate set name = ?, city = ?, created = ? where id = ?")
         ) {
             statement.setString(1, candidate.getName());
-            statement.setInt(2, candidate.getId());
+            statement.setString(2, candidate.getCity());
+            statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(4, candidate.getId());
             statement.execute();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -289,7 +290,6 @@ public class DbStore implements Store {
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("description"),
-                            //it.getString("created")
                             it.getTimestamp("created").toLocalDateTime()
                     );
                 }
@@ -311,7 +311,8 @@ public class DbStore implements Store {
                     return new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
-                            it.getString("city")
+                            it.getString("city"),
+                            it.getTimestamp("created").toLocalDateTime()
                     );
                 }
             }
@@ -363,6 +364,52 @@ public class DbStore implements Store {
             LOG.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    @Override
+    public Collection<Post> allTodayPost() {
+        List<Post> posts = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
+                     "select * from post where created between current_date AND current_date + time '23:59:59'")
+        ) {
+            try (ResultSet it = statement.executeQuery()) {
+                while (it.next()) {
+                    posts.add(new Post(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("description"),
+                            it.getTimestamp("created").toLocalDateTime()
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return posts;
+    }
+
+    @Override
+    public Collection<Candidate> allTodayCandidate() {
+        List<Candidate> candidates = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
+                     "select * from candidate where created between current_date AND current_date + time '23:59:59'")
+        ) {
+            try (ResultSet it = statement.executeQuery()) {
+                while (it.next()) {
+                    candidates.add(new Candidate(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("city"),
+                            it.getTimestamp("created").toLocalDateTime()
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return candidates;
     }
 
 }

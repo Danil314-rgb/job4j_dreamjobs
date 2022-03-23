@@ -1,3 +1,8 @@
+<%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="dream.Store" %>
+<%@ page import="dream.DbStore" %>
+<%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
@@ -27,13 +32,68 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">Сегодняшние вакансии</div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Объявление</th>
+                        <th scope="col">Описание</th>
+                        <%--<th scope="col">Дата публикации</th>--%>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for (Post post : DbStore.instOf().allTodayPost()) { %>
+                    <tr>
+                        <td>
+                            <%=post.getId()%>
+                        </td>
+                        <td>
+                            <%=post.getName()%>
+                        </td>
+                        <td>
+                            <%=post.getDescription()%>
+                        </td>
+                        <%--<td>
+                            <%=post.getCreated()%>
+                        </td>--%>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">Сегодняшние кандидаты</div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Имя-Позиция</th>
+                        <th scope="col">Город</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for (Candidate candidate : DbStore.instOf().allTodayCandidate()) { %>
+                    <tr>
+                        <td>
+                            <%=candidate.getId()%>
+                        </td>
+                        <td>
+                            <%=candidate.getName()%>
+                        </td>
+                        <td>
+                            <%=candidate.getCity()%>
+                        </td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
