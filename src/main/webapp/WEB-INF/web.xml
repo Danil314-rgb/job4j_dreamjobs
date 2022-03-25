@@ -11,7 +11,7 @@
 
     <servlet>
         <servlet-name>PostServlet</servlet-name>
-        <servlet-class>dream.PostServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.PostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
@@ -20,7 +20,7 @@
 
     <servlet>
         <servlet-name>CandidateServlet</servlet-name>
-        <servlet-class>dream.CandidateServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.CandidateServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CandidateServlet</servlet-name>
@@ -29,7 +29,7 @@
 
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>dream.IndexServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.IndexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>AuthServlet</servlet-name>
-        <servlet-class>dream.AuthServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.AuthServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
@@ -47,7 +47,7 @@
 
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>dream.LogoutServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -56,7 +56,7 @@
 
     <servlet>
         <servlet-name>RegServlet</servlet-name>
-        <servlet-class>dream.RegServlet</servlet-class>
+        <servlet-class>ru.job4j.dream.servlets.RegServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegServlet</servlet-name>
@@ -74,7 +74,7 @@
 
     <filter>
         <filter-name>AuthFilter</filter-name>
-        <filter-class>dream.AuthFilter</filter-class>
+        <filter-class>ru.job4j.dream.filter.AuthFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>

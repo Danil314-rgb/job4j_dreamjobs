@@ -1,4 +1,4 @@
-package dream;
+package ru.job4j.dream.persistence;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;

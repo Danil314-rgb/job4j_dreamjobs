@@ -1,4 +1,4 @@
-package dream;
+package ru.job4j.dream.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;

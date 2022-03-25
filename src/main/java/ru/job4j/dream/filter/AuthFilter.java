@@ -1,4 +1,4 @@
-package dream;
+package ru.job4j.dream.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

@@ -1,6 +1,7 @@
-package dream;
+package ru.job4j.dream.servlets;
 
 import ru.job4j.dream.model.User;
+import ru.job4j.dream.persistence.DbStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
